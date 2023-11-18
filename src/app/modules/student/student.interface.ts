@@ -1,5 +1,3 @@
-import { Schema, model, connect } from 'mongoose'
-
 export type TUserName = {
   firstName: string
   middleName: string
@@ -26,7 +24,7 @@ export type TStudent = {
   id: string
   name: TUserName
   gender: 'male' | 'female'
-  dateOfBirth: string
+  dateOfBirth?: string
   email: string
   contactNo: string
   emergencyContactNo: string
@@ -36,5 +34,5 @@ export type TStudent = {
   guardian: TGuardian
   localGuardian: TLocalGuardian
   profileImg?: string
-  isActive: 'active' | 'inActive'
+  isActive: 'active' | 'blocked'
 }
