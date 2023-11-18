@@ -1,5 +1,11 @@
 import { Schema, model, connect } from 'mongoose'
 
+export type TUserName = {
+  firstName: string
+  middleName: string
+  lastName: string
+}
+
 export type TGuardian = {
   fatherName: string
   fatherOccupation: string
@@ -9,13 +15,16 @@ export type TGuardian = {
   motherContactNo: string
 }
 
+export type TLocalGuardian = {
+  name: string
+  occupation: string
+  contactNo: string
+  address: string
+}
+
 export type TStudent = {
   id: string
-  name: {
-    firstName: string
-    middleName: string
-    lastName: string
-  }
+  name: TUserName
   gender: 'male' | 'female'
   dateOfBirth: string
   email: string
@@ -25,4 +34,7 @@ export type TStudent = {
   presentAddress: string
   permanentAddress: string
   guardian: TGuardian
+  localGuardian: TLocalGuardian
+  profileImg?: string
+  isActive: 'active' | 'inActive'
 }
