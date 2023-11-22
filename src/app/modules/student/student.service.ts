@@ -12,6 +12,7 @@ const createStudentIntoDb = async (studentData: TStudent) => {
 
 const getAllStudentsFromDb = async () => {
   const result = await StudentModel.find()
+
   return result
 }
 
