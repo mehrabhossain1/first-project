@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose'
 import validator from 'validator'
 import {
-  StudentMethods,
   StudentModel,
   TGuardian,
   TLocalGuardian,
@@ -11,7 +10,7 @@ import {
 import bcrypt from 'bcrypt'
 import config from '../../config'
 
-const studentNameSchema = new Schema<TUserName, StudentModel, StudentMethods>({
+const studentNameSchema = new Schema<TUserName, StudentModel>({
   firstName: {
     type: String,
     required: [true, 'First name is required'],
