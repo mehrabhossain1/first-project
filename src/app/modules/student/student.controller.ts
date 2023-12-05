@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { StudentServices } from './student.service'
-// import { studentValidationSchema } from './student.validation'
 
-// import { studentValidationSchema } from './student.validation'
-
-const getAllStudents = async (req: Request, res: Response) => {
+const getAllStudents = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const result = await StudentServices.getAllStudentsFromDb()
 
@@ -14,18 +15,19 @@ const getAllStudents = async (req: Request, res: Response) => {
       message: 'Students retrieved successfully',
       data: result,
     })
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Something went wrong',
-      err: error,
-    })
+  } catch (error) {
+    next(error)
   }
 }
 
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { studentId } = req.params
+
     const result = await StudentServices.getSingleStudentFromDb(studentId)
 
     res.status(200).json({
@@ -33,12 +35,8 @@ const getSingleStudent = async (req: Request, res: Response) => {
       message: 'Student is retrieved successfully',
       data: result,
     })
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Something went wrong',
-      err: error,
-    })
+  } catch (error) {
+    next(error)
   }
 }
 
