@@ -3,45 +3,7 @@ import { Request, Response } from 'express'
 import { StudentServices } from './student.service'
 // import { studentValidationSchema } from './student.validation'
 
-import { studentValidationSchema } from './student.validation'
-
-const createStudent = async (req: Request, res: Response) => {
-  try {
-    //creating a schema validation using zod
-
-    // creating a schema validation using Joi
-    const { student: studentData } = req.body
-
-    // data validation using Joi
-    // const { error, value } = studentValidationSchema.validate(studentData)
-
-    // data validation using zod
-
-    const zodParsedData = studentValidationSchema.parse(studentData)
-
-    const result = await StudentServices.createStudentIntoDb(zodParsedData)
-
-    // if (error) {
-    //   res.status(500).json({
-    //     success: false,
-    //     message: 'Something went wrong',
-    //     error: error.details,
-    //   })
-    // }
-
-    res.status(201).json({
-      success: true,
-      message: 'Student created successfully',
-      data: result,
-    })
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Something went wrong',
-      err: error,
-    })
-  }
-}
+// import { studentValidationSchema } from './student.validation'
 
 const getAllStudents = async (req: Request, res: Response) => {
   try {
@@ -101,7 +63,6 @@ const deleteStudent = async (req: Request, res: Response) => {
 }
 
 export const StudentControllers = {
-  createStudent,
   getAllStudents,
   getSingleStudent,
   deleteStudent,
