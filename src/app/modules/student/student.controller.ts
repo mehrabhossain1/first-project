@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from 'express'
 import { StudentServices } from './student.service'
+import sendResponse from '../../utils/sendResponse'
+import httpStatus from 'http-status'
 
 const getAllStudents = async (
   req: Request,
@@ -10,7 +11,8 @@ const getAllStudents = async (
   try {
     const result = await StudentServices.getAllStudentsFromDb()
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
       message: 'Students retrieved successfully',
       data: result,
@@ -30,7 +32,8 @@ const getSingleStudent = async (
 
     const result = await StudentServices.getSingleStudentFromDb(studentId)
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
       message: 'Student is retrieved successfully',
       data: result,
@@ -40,23 +43,24 @@ const getSingleStudent = async (
   }
 }
 
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { studentId } = req.params
 
     const result = await StudentServices.deleteStudentFromDb(studentId)
 
-    res.status(200).json({
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
       message: 'Student is deleted successfully',
       data: result,
     })
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message || 'Something went wrong',
-      err: error,
-    })
+  } catch (error) {
+    next(error)
   }
 }
 
