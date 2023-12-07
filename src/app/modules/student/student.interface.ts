@@ -27,7 +27,7 @@ export type TStudent = {
   user: Types.ObjectId
   password: string
   name: TUserName
-  gender: 'male' | 'female'
+  gender: 'male' | 'female' | 'other'
   dateOfBirth?: Date
   email: string
   contactNo: string
@@ -38,6 +38,7 @@ export type TStudent = {
   guardian: TGuardian
   localGuardian: TLocalGuardian
   profileImg?: string
+  admissionSemester: Types.ObjectId
   isDeleted: boolean
 }
 
