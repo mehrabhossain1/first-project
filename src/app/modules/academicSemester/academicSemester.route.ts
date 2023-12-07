@@ -20,7 +20,13 @@ router.get(
   AcademicSemesterControllers.getSingleAcademicSemester,
 )
 
-// TODO: Create an update route
-// router.patch('/:semesterId')
+router.patch(
+  '/:semesterId',
+  validateRequest(
+    AcademicSemesterValidations.updateAcademicSemesterValidationSchema,
+  ),
+
+  AcademicSemesterControllers.updateAcademicSemester,
+)
 
 export const AcademicSemesterRoutes = router
