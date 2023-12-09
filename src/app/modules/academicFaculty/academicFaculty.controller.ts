@@ -28,7 +28,7 @@ const getAllAcademicFaculties = catchAsync(async (req, res) => {
 })
 
 const getSingleAcademicFaculty = catchAsync(async (req, res) => {
-  const { semesterId: facultyId } = req.params
+  const { facultyId } = req.params
   const result =
     await AcademicFacultyServices.getSingleAcademicFacultyFromDB(facultyId)
 
