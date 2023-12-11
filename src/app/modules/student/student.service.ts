@@ -4,6 +4,7 @@ import { Student } from './student.model'
 import AppError from '../../errors/AppError'
 import { User } from '../user/user.model'
 import httpStatus from 'http-status'
+import { TStudent } from './student.interface'
 
 const getAllStudentsFromDb = async () => {
   const result = await Student.find()
@@ -19,7 +20,7 @@ const getAllStudentsFromDb = async () => {
 }
 
 const getSingleStudentFromDb = async (id: string) => {
-  const result = await Student.findById(id)
+  const result = await Student.findOne({ id })
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -27,14 +28,20 @@ const getSingleStudentFromDb = async (id: string) => {
         path: 'academicFaculty',
       },
     })
-
   // const result = await Student.aggregate([{ $match: { id: id } }])
+
+  return result
+}
+
+const updateStudentIntoDb = async (id: string, payload: Partial<TStudent>) => {
+  const result = await Student.findOneAndUpdate({ id }, payload)
 
   return result
 }
 
 const deleteStudentFromDb = async (id: string) => {
   const session = await mongoose.startSession()
+
   try {
     session.startTransaction()
 
@@ -71,5 +78,6 @@ const deleteStudentFromDb = async (id: string) => {
 export const StudentServices = {
   getAllStudentsFromDb,
   getSingleStudentFromDb,
+  updateStudentIntoDb,
   deleteStudentFromDb,
 }
