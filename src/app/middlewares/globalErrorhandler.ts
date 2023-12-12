@@ -20,3 +20,15 @@ const globalErrorHandler = (
 }
 
 export default globalErrorHandler
+
+/* 
+  Pattern
+
+  success
+  message
+  errorSources: [
+    path: ''
+    message: ''
+  ]
+  stack
+*/
