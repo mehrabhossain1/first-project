@@ -1,4 +1,3 @@
-// import { TStudent } from './student.interface'
 import mongoose from 'mongoose'
 import { Student } from './student.model'
 import AppError from '../../errors/AppError'
@@ -7,7 +6,6 @@ import httpStatus from 'http-status'
 import { TStudent } from './student.interface'
 
 const getAllStudentsFromDb = async (query: Record<string, unknown>) => {
-  console.log('base query', query)
   const queryObj = { ...query } // copy
 
   // { email: { $regex: query.searchTerm, $options: i }}
@@ -28,10 +26,11 @@ const getAllStudentsFromDb = async (query: Record<string, unknown>) => {
   })
 
   // Filtering
-  const excludeFields = ['searchTerm', 'sort', 'limit']
+  const excludeFields = ['searchTerm', 'sort', 'limit', 'page']
 
   excludeFields.forEach((el) => delete queryObj[el])
-  // console.log({ query, queryObj })
+
+  console.log({ query }, { queryObj })
 
   const filterQuery = searchQuery
     .find(queryObj)
@@ -44,19 +43,28 @@ const getAllStudentsFromDb = async (query: Record<string, unknown>) => {
     })
 
   let sort = '-createdAt'
-
   if (query.sort) {
     sort = query.sort as string
   }
 
   const sortQuery = filterQuery.sort(sort)
 
+  let page = 1
   let limit = 1
+  let skip = 0
+
   if (query.limit) {
-    limit = query.limit as number
+    limit = Number(query.limit)
   }
 
-  const limitQuery = await sortQuery.limit(limit)
+  if (query.page) {
+    page = Number(query.page)
+    skip = (page - 1) * limit
+  }
+
+  const paginateQuery = sortQuery.skip(skip)
+
+  const limitQuery = await paginateQuery.limit(limit)
 
   return limitQuery
 }
