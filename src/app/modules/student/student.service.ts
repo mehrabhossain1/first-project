@@ -6,39 +6,39 @@ import httpStatus from 'http-status'
 import { TStudent } from './student.interface'
 
 const getAllStudentsFromDb = async (query: Record<string, unknown>) => {
-  const queryObj = { ...query } // copy
+  // const queryObj = { ...query } // copy
 
   // { email: { $regex: query.searchTerm, $options: i }}
   // { presentAddress: { $regex: query.searchTerm, $options: i }}
   // { 'name.firstName': { $regex: query.searchTerm, $options: i }}
 
-  const studentSearchableFields = ['email', 'name.firstName', 'presentAddress']
+  // const studentSearchableFields = ['email', 'name.firstName', 'presentAddress']
 
-  let searchTerm = ''
-  if (query?.searchTerm) {
-    searchTerm = query?.searchTerm as string
-  }
+  // let searchTerm = ''
+  // if (query?.searchTerm) {
+  //   searchTerm = query?.searchTerm as string
+  // }
 
-  const searchQuery = Student.find({
-    $or: studentSearchableFields.map((field) => ({
-      [field]: { $regex: searchTerm, $options: 'i' },
-    })),
-  })
+  // const searchQuery = Student.find({
+  //   $or: studentSearchableFields.map((field) => ({
+  //     [field]: { $regex: searchTerm, $options: 'i' },
+  //   })),
+  // })
 
-  // Filtering
-  const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields']
+  // // Filtering
+  // const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields']
 
-  excludeFields.forEach((el) => delete queryObj[el])
+  // excludeFields.forEach((el) => delete queryObj[el])
 
-  const filterQuery = searchQuery
-    .find(queryObj)
-    .populate('admissionSemester')
-    .populate({
-      path: 'academicDepartment',
-      populate: {
-        path: 'academicFaculty',
-      },
-    })
+  // const filterQuery = searchQuery
+  //   .find(queryObj)
+  //   .populate('admissionSemester')
+  //   .populate({
+  //     path: 'academicDepartment',
+  //     populate: {
+  //       path: 'academicFaculty',
+  //     },
+  //   })
 
   let sort = '-createdAt'
   if (query.sort) {
