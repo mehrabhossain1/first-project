@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
-import { BloodGroup, Gender } from './faculty.constant'
 import { FacultyModel, TFaculty, TUserName } from './faculty.interface'
+import { BloodGroup, Gender } from './faculty.constant'
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -30,7 +30,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     },
     user: {
       type: Schema.Types.ObjectId,
-      required: [true, 'User id is required'],
+      required: [true, 'User ID is required'],
       unique: true,
       ref: 'User',
     },
@@ -46,7 +46,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
       type: String,
       enum: {
         values: Gender,
-        message: '{VALUE} is not a valid gender',
+        message: `{VALUE} is not a valid gender`,
       },
       required: [true, 'Gender is required'],
     },
@@ -56,7 +56,10 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
       required: [true, 'Email is required'],
       unique: true,
     },
-    contactNo: { type: String, required: [true, 'Contact number is required'] },
+    contactNo: {
+      type: String,
+      required: [true, 'Contact number is required'],
+    },
     emergencyContactNo: {
       type: String,
       required: [true, 'Emergency contact number is required'],
@@ -65,7 +68,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
       type: String,
       enum: {
         values: BloodGroup,
-        message: '{VALUE} is not a valid blood group',
+        message: `{VALUE} is not valid blood group`,
       },
     },
     presentAddress: {
@@ -76,7 +79,9 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
       type: String,
       required: [true, 'Permanent address is required'],
     },
-    profileImg: { type: String },
+    profileImg: {
+      type: String,
+    },
     academicDepartment: {
       type: Schema.Types.ObjectId,
       required: [true, 'User id is required'],
@@ -116,12 +121,7 @@ facultySchema.pre('findOne', function (next) {
   next()
 })
 
-facultySchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } })
-  next()
-})
-
-//checking if user is already exist!
+// checking if user is already exist!
 facultySchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Faculty.findOne({ id })
   return existingUser
