@@ -19,6 +19,14 @@ const moduleRoutes = [
     route: StudentRoutes,
   },
   {
+    path: '/faculties',
+    route: FacultyRoutes,
+  },
+  {
+    path: '/admins',
+    route: AdminRoutes,
+  },
+  {
     path: '/academic-semesters',
     route: AcademicSemesterRoutes,
   },
@@ -29,14 +37,6 @@ const moduleRoutes = [
   {
     path: '/academic-departments',
     route: AcademicDepartmentRoutes,
-  },
-  {
-    path: '/faculties',
-    route: FacultyRoutes,
-  },
-  {
-    path: '/admins',
-    route: AdminRoutes,
   },
 ]
 
