@@ -14,8 +14,8 @@ const createCourse = catchAsync(async (req, res) => {
   })
 })
 
-const getAllCourse = catchAsync(async (req, res) => {
-  const result = await CourseServices.getAllCoursesFromDB()
+const getAllCourses = catchAsync(async (req, res) => {
+  const result = await CourseServices.getAllCoursesFromDB(req.query)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -66,7 +66,7 @@ const deleteCourse = catchAsync(async (req, res) => {
 
 export const CourseControllers = {
   createCourse,
-  getAllCourse,
+  getAllCourses,
   getSingleCourse,
   deleteCourse,
 }
