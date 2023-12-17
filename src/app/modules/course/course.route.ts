@@ -11,7 +11,7 @@ router.post(
   CourseControllers.createCourse,
 )
 
-router.get('/', CourseControllers.getAllCourse)
+router.get('/', CourseControllers.getAllCourses)
 
 router.get('/:id', CourseControllers.getSingleCourse)
 

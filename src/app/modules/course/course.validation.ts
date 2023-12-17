@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const PreRequisiteCourseValidationSchema = z.object({
   course: z.string(),
-  isDeleted: z.boolean(),
+  isDeleted: z.boolean().optional(),
 })
 
 const crateCourseValidationSchema = z.object({
