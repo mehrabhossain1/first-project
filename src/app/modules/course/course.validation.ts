@@ -12,6 +12,8 @@ const crateCourseValidationSchema = z.object({
     code: z.number(),
     credits: z.number(),
     preRequisiteCourses: z.array(PreRequisiteCourseValidationSchema).optional(),
+    isDeleted: z.boolean().optional(),
+    //
   }),
 })
 
