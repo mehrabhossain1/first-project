@@ -14,6 +14,7 @@ const crateCourseValidationSchema = z.object({
     preRequisiteCourses: z.array(PreRequisiteCourseValidationSchema).optional(),
     isDeleted: z.boolean().optional(),
     // commenting for the second day of no code
+    // second comment
   }),
 })
 
