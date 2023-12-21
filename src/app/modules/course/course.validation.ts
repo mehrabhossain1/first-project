@@ -13,12 +13,12 @@ const crateCourseValidationSchema = z.object({
     credits: z.number(),
     preRequisiteCourses: z.array(PreRequisiteCourseValidationSchema).optional(),
     isDeleted: z.boolean().optional(),
-    // commenting for the second day of no code
-    // second comment
-    // thrid comment
   }),
 })
 
+const updateCourseValidationSchema = crateCourseValidationSchema.partial()
+
 export const CourseValidations = {
   crateCourseValidationSchema,
+  updateCourseValidationSchema,
 }
