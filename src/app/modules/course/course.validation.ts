@@ -15,6 +15,7 @@ const crateCourseValidationSchema = z.object({
     isDeleted: z.boolean().optional(),
     // commenting for the second day of no code
     // second comment
+    // thrid comment
   }),
 })
 
